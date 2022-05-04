@@ -1,0 +1,7 @@
+/build
+/cmake-build-debug
+/cmake-build-debug-wsl
+CMakeLists.txt
+lab4a
+tree.txt
+.idea
