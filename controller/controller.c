@@ -1,4 +1,9 @@
 #include "controller.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <readline/readline.h>
+
 
 unsigned int getUInt(){
     char *msg = "";
@@ -177,6 +182,8 @@ int importFromFile(BinTree* tree){
                 if(strlen(str_key) < 1 && ptr != str_key + strlen(str_key)){
                     free(str_data);
                     free(str_key);
+		    fclose(fd);
+	            free(filename);
                     return 2;
                 }
                 ptr = NULL;
@@ -184,6 +191,8 @@ int importFromFile(BinTree* tree){
                 if(strlen(str_data) < 1 && ptr != str_data + strlen(str_data)){
                     free(str_data);
                     free(str_key);
+		    fclose(fd);
+		    free(filename);
                     return 2;
                 }
                 addNewElement(tree, data, key);
@@ -191,12 +200,18 @@ int importFromFile(BinTree* tree){
                 free(str_key);
             } else {
                 free(str_data);
+		fclose(fd);
+		free(filename);
                 return 2;
             }
         } else {
+	    fclose(fd);
+	    free(filename);
             return 2;
         }
     }
+    fclose(fd);
     free(filename);
     return 0;
 }
+
