@@ -39,7 +39,7 @@ void printTree(BinTreeNode* root, Trunk* prev, int isLeft){
     }
 
     showTrunks(&trunk);
-    printf(" %d\n", root->data);
+    printf(" (%d,%d)\n", root->key, root->data);
     if(prev){
         prev->str = prev_str;
     }
