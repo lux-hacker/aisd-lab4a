@@ -165,6 +165,7 @@ int deleteElement(BinTree* tree, unsigned int key){
         } else if(ptr->left == NULL){
             if(ptr->parent == NULL){
                 tree->root = tree->root->right;
+                tree->root->parent = NULL;
                 free(ptr);
             } else {
                 if(ptr->parent->left == ptr) ptr->parent->left = ptr->right;
@@ -174,6 +175,7 @@ int deleteElement(BinTree* tree, unsigned int key){
         } else if(ptr->right == NULL){
             if(ptr->parent == NULL){
                 tree->root = tree->root->left;
+                tree->root->parent = NULL;
                 free(ptr);
             } else {
                 if(ptr->parent->left == ptr) ptr->parent->left = ptr->left;
