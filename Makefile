@@ -29,3 +29,7 @@ controller.o:
 clean:
 	rm -rf build/
 	rm lab4a
+
+clean_timing:
+	rm -rf build/
+	rm timing

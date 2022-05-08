@@ -67,9 +67,9 @@ void timingAddElement(){
     FILE* fd = fopen("timing.csv", "w+");
     fprintf(fd, "len,avg,func\n");
     for(int i = 1; i <= 10; i++){
-	int size = 10000*i;
+	int size = 100000*i;
 	double sum = 0;
-	for(int j = 0; j < 10; j++){
+	for(int j = 0; j < 10000; j++){
 	    BinTree* tree = generateTree(size);
 	    unsigned int key = rand() % size + 1;
 	    unsigned int data = key;
@@ -89,7 +89,7 @@ void timingDeleteElement(){
     FILE* fd = fopen("timing.csv", "w+");
     fprintf(fd, "len,avg,func\n");
     for(int i = 1; i <= 10; i++){
-        int size = 10000*i;
+        int size = 100000*i;
         double sum = 0;
         for(int j = 0; j < 10; j++){
             BinTree* tree = generateTree(size);
@@ -105,7 +105,7 @@ void timingDeleteElement(){
             sum += (double)(end-begin) / CLOCKS_PER_SEC;
             freeTree(tree);
             free(tree);
-	}                                                                                                                                    }
+	}
         fprintf(fd, "%d,%f,%s\n", size, sum/10, "deleteElement");
     }
     fclose(fd);
@@ -115,7 +115,7 @@ void timingDFS(){
     FILE* fd = fopen("timing.csv", "w+");
     fprintf(fd, "len,avg,func\n");
     for(int i = 1; i <= 10; i++){
-        int size = 10000*i;
+        int size = 100000*i;
 	double sum = 0;
 	for(int j = 0; j < 10; j++){
             BinTree* tree = generateTree(size);
@@ -141,7 +141,7 @@ void timingFindElement(){
     FILE* fd = fopen("timing.csv", "w+");
     fprintf(fd, "len,avg,func\n");
     for(int i = 1; i <= 10; i++){
-        int size = 10000*i;
+        int size = 100000*i;
         double sum = 0;
         for(int j = 0; j < 10; j++){
             BinTree* tree = generateTree(size);
@@ -157,7 +157,7 @@ void timingFindElement(){
             sum += (double)(end-begin) / CLOCKS_PER_SEC;
             freeTree(tree);
             free(tree);
-        }                                                                                                                                    }
+        }
         fprintf(fd, "%d,%f,%s\n", size, sum/10, "findElement");
     }
     fclose(fd);
