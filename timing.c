@@ -6,9 +6,7 @@
 BinTree* generateTree(int);
 void timingAddElement();
 void timingDeleteElement();
-void timingDFS();
 void timingFindElement();
-void timingFindMinElement();
 
 int main(){
    srand(time(NULL));
@@ -16,9 +14,7 @@ int main(){
    printf("0)Exit\n");
    printf("1)Add element\n");
    printf("2)Delete element\n");
-   printf("3)DFS\n");
-   printf("4)Find element\n");
-   printf("5)Find min element\n");
+   printf("3)Find element\n");
    printf("--> ");
    int n = getUInt();
    switch(n){
@@ -31,15 +27,7 @@ int main(){
             break;
         }
 	case 3:{
-            timingDFS();
-            break;
-        }
-	case 4:{
             timingFindElement();
-            break;
-        }
-	case 5:{
-            timingFindMinElement();
             break;
         }
 	default:{
@@ -66,21 +54,22 @@ BinTree* generateTree(int size){
 void timingAddElement(){
     FILE* fd = fopen("timing.csv", "w+");
     fprintf(fd, "len,avg,func\n");
-    for(int i = 1; i <= 10; i++){
-	int size = 100000*i;
+    for(int size = 100000; size <= 1500000; size+=10000){
 	double sum = 0;
-	for(int j = 0; j < 10000; j++){
+	for(int k = 0; k < 100; k++){
 	    BinTree* tree = generateTree(size);
-	    unsigned int key = rand() % size + 1;
-	    unsigned int data = key;
-	    clock_t begin = clock();
-	    addNewElement(tree, key, data);
-	    clock_t end = clock();
-	    sum += (double)(end-begin) / CLOCKS_PER_SEC;
+	    for(int i = 0; i < 10000; i++){
+		int key = rand() % size;
+		int data = key;
+		clock_t start = clock();
+		addNewElement(tree, key, data);
+		clock_t end = clock();
+		sum += (end - start);
+	    }
 	    freeTree(tree);
 	    free(tree);
 	}
-	fprintf(fd, "%d,%f,%s\n", size, sum/10, "addElement");
+	fprintf(fd, "%d,%f,%s\n", size, sum/100, "addElement");
     }
     fclose(fd);
 }
@@ -111,32 +100,6 @@ void timingDeleteElement(){
     fclose(fd);
 }
 
-void timingDFS(){
-    FILE* fd = fopen("timing.csv", "w+");
-    fprintf(fd, "len,avg,func\n");
-    for(int i = 1; i <= 10; i++){
-        int size = 100000*i;
-	double sum = 0;
-	for(int j = 0; j < 10; j++){
-            BinTree* tree = generateTree(size);
-            unsigned int from = rand() % size + 1;
-            unsigned int to = rand() % (size - from) + from;
-            clock_t begin = clock();
-            Vector* vector = dfs(tree, from, to, NULL);
-            clock_t end = clock();
-            sum += (double)(end-begin) / CLOCKS_PER_SEC;
-            freeTree(tree);
-            free(tree);
-	    if(vector != NULL){
-	        free(vector->data);
-	        free(vector);
-	    }
-	}
-	fprintf(fd, "%d,%f,%s\n", size, sum/10, "DFS");
-    }
-    fclose(fd);
-}
-
 void timingFindElement(){
     FILE* fd = fopen("timing.csv", "w+");
     fprintf(fd, "len,avg,func\n");
@@ -159,26 +122,6 @@ void timingFindElement(){
             free(tree);
         }
         fprintf(fd, "%d,%f,%s\n", size, sum/10, "findElement");
-    }
-    fclose(fd);
-}
-
-void timingFindMinElement(){
-    FILE* fd = fopen("timing.csv", "w+");
-    fprintf(fd, "len,avg,func\n");
-    for(int i = 1; i <= 10; i++){
-	double sum = 0;
-	int size = 100000*i;
-	for(int j = 0; j < 10; j++){
-            BinTree* tree = generateTree(size);
-            clock_t begin = clock();
-            findMin(tree, 1);
-            clock_t end = clock();
-            sum += (double)(end-begin) / CLOCKS_PER_SEC;
-            freeTree(tree);
-            free(tree);
-	}
-	fprintf(fd, "%d,%f,%s\n", size, sum/10, "findMinElement");
     }
     fclose(fd);
 }
