@@ -5,8 +5,8 @@
 
 BinTree* generateTree(int);
 void timingAddElement();
-void timingDeleteElement();
-void timingFindElement();
+/*void timingDeleteElement();
+void timingFindElement();*/
 
 int main(){
    srand(time(NULL));
@@ -22,14 +22,14 @@ int main(){
 	    timingAddElement();
 	    break;
 	}
-	case 2:{
+	/*case 2:{
             timingDeleteElement();
             break;
         }
 	case 3:{
             timingFindElement();
             break;
-        }
+        }*/
 	default:{
 	    break;
 	}
@@ -42,7 +42,7 @@ BinTree* generateTree(int size){
     BinTree* tree = (BinTree*) malloc(sizeof(BinTree));
     tree->root = NULL;
     for(int i = 0; i < size; i++){
-	unsigned int key = rand() % size + 1;
+	unsigned int key = rand();
 	unsigned int data = key;
 	fwrite(&key, sizeof(unsigned int), 1, buf);
 	addNewElement(tree, key, data);
@@ -54,26 +54,28 @@ BinTree* generateTree(int size){
 void timingAddElement(){
     FILE* fd = fopen("timing.csv", "w+");
     fprintf(fd, "len,avg,func\n");
-    for(int size = 100000; size <= 1500000; size+=10000){
+    for(int size = 100000; size <= 5000000; size+=100000){
 	double sum = 0;
-	for(int k = 0; k < 100; k++){
+	for(int k = 0; k < 10; k++){
 	    BinTree* tree = generateTree(size);
-	    for(int i = 0; i < 10000; i++){
-		int key = rand() % size;
-		int data = key;
-		clock_t start = clock();
-		addNewElement(tree, key, data);
-		clock_t end = clock();
-		sum += (end - start);
+	    unsigned int keys[100] = {0};
+	    for(int i = 0; i < 100; i++){
+		keys[i] = rand();
 	    }
+	    clock_t start = clock();
+	    for(int i = 0; i < 100; i++){
+		addNewElement(tree, keys[i], keys[i]);
+	    }
+	    clock_t end = clock();
+	    sum += (double)(end - start) / CLOCKS_PER_SEC;
 	    freeTree(tree);
 	    free(tree);
 	}
-	fprintf(fd, "%d,%f,%s\n", size, sum/100, "addElement");
+	fprintf(fd, "%d,%f,%s\n", size, sum/10, "addElement");
     }
     fclose(fd);
 }
-
+/*
 void timingDeleteElement(){
     FILE* fd = fopen("timing.csv", "w+");
     fprintf(fd, "len,avg,func\n");
@@ -125,3 +127,4 @@ void timingFindElement(){
     }
     fclose(fd);
 }
+*/
