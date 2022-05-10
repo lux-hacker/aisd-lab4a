@@ -38,16 +38,13 @@ int main() {
 }
 
 BinTree *generateTree(int size) {
-    FILE *buf = fopen("buf.bin", "w+b");
     BinTree *tree = (BinTree *) malloc(sizeof(BinTree));
     tree->root = NULL;
     for (int i = 0; i < size; i++) {
         unsigned int key = rand();
         unsigned int data = key;
-        fwrite(&key, sizeof(unsigned int), 1, buf);
         addNewElement(tree, key, data);
     }
-    fclose(buf);
     return tree;
 }
 
