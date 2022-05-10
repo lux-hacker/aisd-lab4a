@@ -6,6 +6,7 @@
 typedef struct BinTreeNode{
     unsigned int key;
     unsigned int data;
+    unsigned int release;
     struct BinTreeNode* left;
     struct BinTreeNode* right;
     struct BinTreeNode* parent;

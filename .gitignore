@@ -8,3 +8,9 @@ tree.txt
 buf.bin
 timing.csv
 timing
+buf.dot
+input.bin
+input.bin.bak
+output.txt
+tree.png
+counter

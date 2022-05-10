@@ -72,6 +72,7 @@ void addNewElement(BinTree* tree, unsigned int data, unsigned int key){
         tree->root->parent = NULL;
         tree->root->left = NULL;
         tree->root->right = NULL;
+        tree->root->release = 0;
         return;
     }
     int duplicate = 0;
@@ -102,6 +103,7 @@ void addNewElement(BinTree* tree, unsigned int data, unsigned int key){
         ptr->data = data;
         ptr->left = NULL;
         ptr->right = NULL;
+        ptr->release = 0;
     } else {
         while(ptr != NULL && ptr->key == key) {
             par = ptr;
@@ -115,6 +117,7 @@ void addNewElement(BinTree* tree, unsigned int data, unsigned int key){
             ptr->data = data;
             ptr->left = NULL;
             ptr->right = NULL;
+            ptr->release = par->release + 1;
         } else {
             BinTreeNode* node = (BinTreeNode*) malloc(sizeof(BinTreeNode));
             node->parent = par;
@@ -124,6 +127,7 @@ void addNewElement(BinTree* tree, unsigned int data, unsigned int key){
             node->right = NULL;
             ptr->parent = node;
             par->left = node;
+            node->release = par->release + 1;
         }
     }
 }

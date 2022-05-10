@@ -125,10 +125,20 @@ void menu(){
                     printf("======[ERROR]======\n");
                     printf("File name shouldn't be empty\n");
                 }
+                break;
+            }
+            case 8:{
+                printf("======[Tree to PNG]======\n");
+                printf("Enter filename of future picture\n--> ");
+                char* pict_name = readline("");
+                treeToPNG(tree, pict_name);
+                free(pict_name);
+                break;
             }
             default:{
                 printf("======[ERROR]======\n");
                 printf("This menu point doesn't exist\n");
+                break;
             }
         }
     }

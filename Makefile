@@ -4,6 +4,9 @@ all: build tree.a view.o controller.o main.o
 timing: build tree.a view.o controller.o timnig.o
 	cc -o timing build/*.o -lreadline -L./build -ltree -std=c11 -g
 
+counter: build tree.a view.o controller.o counter.o
+	cc -o counter build/*.o -lreadline -L./build -ltree -std=c11 -g
+
 build:
 	mkdir build
 
@@ -16,6 +19,9 @@ main.o:
 
 timnig.o:
 	cc -c timing.c -o build/timnig.o -std=c11 -g
+
+counter.o:
+	cc -c counter.c -o build/counter.o -std=c11 -g
 
 model.o:
 	cc -c model/BinTree.c -o build/BinTree.o -std=c11 -g
@@ -33,3 +39,8 @@ clean:
 clean_timing:
 	rm -rf build/
 	rm timing
+
+
+clean_counter:
+	rm -rf build/
+	rm counter
