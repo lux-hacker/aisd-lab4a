@@ -74,6 +74,7 @@ void treeToPNG(BinTree* tree, const char* fn){
     char cmd[255] = {0};
     sprintf(cmd, "dot -Tpng buf.dot -o %s", fn);
     system(cmd);
+    remove("buf.dot");
 }
 
 void _treeToPNG(BinTreeNode* root, FILE* fd){
