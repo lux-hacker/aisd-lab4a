@@ -43,7 +43,7 @@ void menu(){
                 unsigned int key = getUInt();
                 printf("Enter data\n--> ");
                 unsigned int data = getUInt();
-                addNewElement(tree, key, data);
+                addNewElement(tree, data, key);
                 break;
             }
             case 2:{

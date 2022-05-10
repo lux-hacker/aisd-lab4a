@@ -31,7 +31,10 @@ int main(){
     tree->root = NULL;
     while(!feof(fd)) {
         unsigned int n;
-        fread(&n, sizeof(unsigned int), 1, fd);
+        int k = fread(&n, sizeof(unsigned int), 1, fd);
+        if(k != 1){
+            break;
+        }
         BinTreeNode *ptr = findByKey(tree, n, 1);
         if (ptr == NULL) {
             addNewElement(tree, 1, n);
